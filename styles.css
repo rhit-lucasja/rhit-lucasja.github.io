@@ -1,0 +1,12 @@
+h1 {
+    color: #338833;
+    background-color: black;
+    font-size: 24px;
+    font-family: 'Lucida Sans';
+}
+p {
+    color: black;
+    background-color: darkslategray;
+    font-size: 12px;
+    font-family: 'Segoe UI';
+}
