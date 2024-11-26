@@ -1,12 +1,20 @@
-h1 {
-    color: #338833;
-    background-color: black;
-    font-size: 24px;
+body {
+    color: black;
     font-family: 'Lucida Sans';
+    text-align: center;
+
+    background-color: gray;
+    padding: 0%;
+    margin: 0%;
+}
+header {
+    font-size: 300%;
+    background-color: green;
+    border: 3px solid black;
 }
 p {
-    color: black;
-    background-color: darkslategray;
-    font-size: 12px;
-    font-family: 'Segoe UI';
+    font-size: 150%;
+}
+pre {
+    font-family: 'Lucida Sans';
 }
