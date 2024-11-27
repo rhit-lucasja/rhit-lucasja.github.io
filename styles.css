@@ -12,9 +12,19 @@ header {
     background-color: green;
     border: 3px solid black;
 }
-p {
-    font-size: 150%;
+img {
+    height: 320px;
 }
-pre {
-    font-family: 'Lucida Sans';
+.container {
+    display: flex;
+    height: 320px;
+}
+.small-media-content {
+    width: 20%;
+}
+.large-media-content {
+    width: 40%;
+}
+.text-content {
+    flex-grow: 1;
 }
