@@ -10,7 +10,7 @@ body {
 header {
     font-size: 300%;
     background-color: green;
-    border: 3px solid black;
+    border: 2px solid black;
 }
 img {
     width: 90%;
@@ -24,26 +24,27 @@ video {
     padding-left: 5%;
     padding-right: 5%;
 }
+
 /*
 For smaller screens
 */
 .container {
-    display: contents;
-    height: 300px;
-    padding-top: 16px;
-    padding-bottom: 16px;
+    padding: 16px;
 }
 .small-media-content {
+    display: block;
     width: 100%;
     padding-top: 16px;
     padding-bottom: 16px;
 }
 .large-media-content {
+    display: block;
     width: 100%;
     padding-top: 16px;
     padding-bottom: 16px;
 }
 .text-content {
+    display: block;
     width: 100%;
     padding-top: 16px;
     padding-bottom: 16px;
@@ -52,12 +53,10 @@ For smaller screens
 /*
 For desktop
 */
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 1048px) {
     .container {
         display: flex;
-        height: 300px;
-        padding-top: 16px;
-        padding-bottom: 16px;
+        padding: 16px;
     }
     .small-media-content {
         width: 20%;
