@@ -3,13 +3,13 @@ body {
     font-family: 'Lucida Sans';
     text-align: center;
 
-    background-color: gray;
+    background-color: #779977;
     padding: 0%;
     margin: 0%;
 }
 header {
     font-size: 300%;
-    background-color: green;
+    background-color: #779977;
     border: 2px solid black;
 }
 img {
@@ -34,20 +34,20 @@ For smaller screens
 .small-media-content {
     display: block;
     width: 100%;
-    padding-top: 16px;
-    padding-bottom: 16px;
 }
 .large-media-content {
     display: block;
     width: 100%;
-    padding-top: 16px;
-    padding-bottom: 16px;
 }
 .text-content {
     display: block;
     width: 100%;
-    padding-top: 16px;
-    padding-bottom: 16px;
+}
+.show-mobile {
+    display: unset;
+}
+.hide-mobile {
+    display: none;
 }
 
 /*
@@ -69,5 +69,11 @@ For desktop
     .text-content {
         flex-grow: 1;
         padding: none;
+    }
+    .show-mobile {
+        display: none;
+    }
+    .hide-mobile {
+        display: unset;
     }
 }
