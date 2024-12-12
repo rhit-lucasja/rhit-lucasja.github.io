@@ -35,6 +35,10 @@ For smaller screens
     display: block;
     width: 100%;
 }
+.medium-media-content {
+    display: block;
+    width: 100%;
+}
 .large-media-content {
     display: block;
     width: 100%;
@@ -62,8 +66,12 @@ For desktop
         width: 20%;
         padding: none;
     }
-    .large-media-content {
+    .medium-media-content {
         width: 40%;
+        padding: none;
+    }
+    .large-media-content {
+        width: 60%;
         padding: none;
     }
     .text-content {
