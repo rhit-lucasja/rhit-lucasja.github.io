@@ -123,8 +123,9 @@ class Category extends Set {
 }
 
 // setup
-const deselect = new Button("Deselect All", width / 2 - 105, height - 60, 100, 50);
-const submit = new Button("Submit", width / 2 + 5, height - 60, 100, 50);
+const shuffler = new Button("Shuffle", width / 2 - 160, height - 60, 100, 50);
+const deselect = new Button("Deselect All", width / 2 - 50, height - 60, 100, 50);
+const submit = new Button("Submit", width / 2 + 60, height - 60, 100, 50);
 // add four items to each categorical set
 const foodGroups = new Category("THE FOUR MAIN FOOD GROUPS");
 foodGroups.add(new Item("CANDY", 0, 0));
@@ -150,18 +151,18 @@ const threes = new Category("COME IN SETS OF THREE");
 threes.add(new Item("SHIPS", 4, 0));
 threes.add(new Item("WISE MEN", 4, 1));
 threes.add(new Item("LET IT SNOW", 4, 2));
-threes.add(new Item("_THREES_4", 4, 3))
-const stores = new Category("STORES FEATURED IN CHRISTMAS MOVIES");
-stores.add(new Item("GIMBELS", 5, 0));
-stores.add(new Item("HIGBEES", 5, 1));
-stores.add(new Item("_STORES_3", 5, 2));
-stores.add(new Item("_STORES_4", 5, 3))
+threes.add(new Item("GHOSTS", 4, 3))
+const elfPlaces = new Category("PLACES BUDDY THE ELF VISITED");
+elfPlaces.add(new Item("GIMBELS", 5, 0));
+elfPlaces.add(new Item("LINCOLN TUNNEL", 5, 1));
+elfPlaces.add(new Item("EMPIRE STATE BUILDING", 5, 2));
+elfPlaces.add(new Item("CENTRAL PARK", 5, 3))
 const cookies = new Category("TYPES OF CHRISTMAS COOKIES");
 cookies.add(new Item("SUGAR", 6, 0));
 cookies.add(new Item("GINGERBREAD", 6, 1));
 cookies.add(new Item("MOLASSES", 6, 2));
 cookies.add(new Item("DATE", 6, 3));
-const celebrations = new Category("OTHER CELEBRATIONS AROUND CHRISTMAS");
+const celebrations = new Category("OTHER CELEBRATIONS NEAR CHRISTMAS");
 celebrations.add(new Item("HANNUKAH", 7, 0));
 celebrations.add(new Item("KWANZAA", 7, 1));
 celebrations.add(new Item("BOXING DAY", 7, 2));
@@ -171,11 +172,11 @@ movieStars.add(new Item("ALLEN", 8, 0));
 movieStars.add(new Item("VAUGHN", 8, 1));
 movieStars.add(new Item("BILLINGSLEY", 8, 2));
 movieStars.add(new Item("FAVREAU", 8, 3));
-const movieSettings = new Category("SETTINGS OF CHRISTMAS MOVIES");
-movieSettings.add(new Item("CHICAGO", 9, 0));
-movieSettings.add(new Item("NEW YORK", 9, 1));
-movieSettings.add(new Item("HOHMAN", 9, 2));
-movieSettings.add(new Item("NORTH POLE", 9, 3));
+const advent = new Category("ADVENT CANDLE THEMES");
+advent.add(new Item("HOPE", 9, 0));
+advent.add(new Item("PEACE", 9, 1));
+advent.add(new Item("JOY", 9, 2));
+advent.add(new Item("LOVE", 9, 3));
 // add all to the main gameplay set
 const itemsLeft = new Set();
 foodGroups.forEach(item => itemsLeft.add(item));
@@ -183,11 +184,11 @@ kevinsFamily.forEach(item => itemsLeft.add(item));
 singers.forEach(item => itemsLeft.add(item));
 elves.forEach(item => itemsLeft.add(item));
 threes.forEach(item => itemsLeft.add(item));
-stores.forEach(item => itemsLeft.add(item));
+elfPlaces.forEach(item => itemsLeft.add(item));
 cookies.forEach(item => itemsLeft.add(item));
 celebrations.forEach(item => itemsLeft.add(item));
 movieStars.forEach(item => itemsLeft.add(item));
-movieSettings.forEach(item => itemsLeft.add(item));
+advent.forEach(item => itemsLeft.add(item));
 // set for the 0-4 selected items, initially empty
 const selected = new Set();
 // set for the solved categories, initially empty
@@ -198,6 +199,8 @@ function handleMouseClick(clickX, clickY) {
         deselectAll();
     } else if (submit.contains(clickX, clickY)) {
         submitGuess();
+    } else if (shuffler.contains(clickX, clickY)) {
+        shuffle();
     } else {
         itemsLeft.forEach(item => {
             if (item.contains(clickX, clickY)) {
@@ -233,16 +236,16 @@ function submitGuess() {
             elves.solve();
         } else if (threes.contains(selected)) {
             threes.solve();
-        } else if (stores.contains(selected)) {
-            stores.solve();
+        } else if (elfPlaces.contains(selected)) {
+            elfPlaces.solve();
         } else if (cookies.contains(selected)) {
             cookies.solve();
         } else if (celebrations.contains(selected)) {
             celebrations.solve();
         } else if (movieStars.contains(selected)) {
             movieStars.solve();
-        } else if (movieSettings.contains(selected)) {
-            movieSettings.solve();
+        } else if (advent.contains(selected)) {
+            advent.solve();
         } else {
             wrong();
         }
@@ -295,6 +298,7 @@ function draw() {
     } else {
         submit.drawButton("rgb(150 150 150)", "rgb(0 0 0)");
     }
+    shuffler.drawButton("rgb(0 0 0)", "rgb(255 255 255)");
 
     // draw item buttons
     itemsLeft.forEach(item => item.drawButton());
