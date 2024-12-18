@@ -155,7 +155,7 @@ threes.add(new Item("GHOSTS", 4, 3))
 const elfPlaces = new Category("PLACES BUDDY THE ELF VISITED");
 elfPlaces.add(new Item("GIMBELS", 5, 0));
 elfPlaces.add(new Item("LINCOLN TUNNEL", 5, 1));
-elfPlaces.add(new Item("EMPIRE STATE BUILDING", 5, 2));
+elfPlaces.add(new Item("NORTH POLE", 5, 2));
 elfPlaces.add(new Item("CENTRAL PARK", 5, 3))
 const cookies = new Category("TYPES OF CHRISTMAS COOKIES");
 cookies.add(new Item("SUGAR", 6, 0));
