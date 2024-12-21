@@ -65,9 +65,26 @@ class Item extends Button {
 
 class Category extends Set {
 
-    constructor(title) {
+    constructor(title, difficulty) {
         super();
         this.title = title;
+        // determine color to draw based on difficulty
+        switch (difficulty) {
+            case "baby":
+                this.color = "rgb(0 150 0)";
+                break;
+            case "easy":
+                this.color = "rgb(175 175 0)";
+                break;
+            case "medium":
+                this.color = "rgb(100 100 150";
+                break;
+            case "hard":
+                this.color = "rgb(150 50 150)";
+                break;
+            default:
+                this.color = "rgb(150 150 150)";
+        }
     }
 
     contains(subset) {
@@ -91,7 +108,7 @@ class Category extends Set {
     }
 
     drawCategory() {
-        ctx.fillStyle = "rgb(0 150 0)";
+        ctx.fillStyle = this.color;
         let w = (width - 20);
         let h = (height - 170) / 10;
         ctx.fillRect(10, 10 + this.num * (h + 10), w, h);
@@ -127,52 +144,52 @@ const shuffler = new Button("Shuffle", width / 2 - 160, height - 60, 100, 50);
 const deselect = new Button("Deselect All", width / 2 - 50, height - 60, 100, 50);
 const submit = new Button("Submit", width / 2 + 60, height - 60, 100, 50);
 // add four items to each categorical set
-const foodGroups = new Category("THE FOUR MAIN FOOD GROUPS");
+const foodGroups = new Category("THE FOUR MAIN FOOD GROUPS", "baby");
 foodGroups.add(new Item("CANDY", 0, 0));
 foodGroups.add(new Item("CANDY CANES", 0, 1));
 foodGroups.add(new Item("CANDY CORN", 0, 2));
 foodGroups.add(new Item("SYRUP", 0, 3));
-const kevinsFamily = new Category("MCCALLISTER FAMILY MEMBERS");
+const kevinsFamily = new Category("MCCALLISTER FAMILY MEMBERS", "hard");
 kevinsFamily.add(new Item("KEVIN", 1, 0));
 kevinsFamily.add(new Item("BUZZ", 1, 1));
 kevinsFamily.add(new Item("FRANK", 1, 2));
 kevinsFamily.add(new Item("FULLER", 1, 3));
-const singers = new Category("CLASSICAL CHRISTMAS SINGERS");
+const singers = new Category("CLASSICAL CHRISTMAS SINGERS", "easy");
 singers.add(new Item("COLE", 2, 0));
 singers.add(new Item("CROSBY", 2, 1));
 singers.add(new Item("SINATRA", 2, 2));
 singers.add(new Item("COMO", 2, 3));
-const elves = new Category("ELVES IN CHRISTMAS MOVIES");
+const elves = new Category("ELVES IN CHRISTMAS MOVIES", "medium");
 elves.add(new Item("BUDDY", 3, 0));
 elves.add(new Item("WILLIE", 3, 1));
 elves.add(new Item("HERMEY", 3, 2));
 elves.add(new Item("MING MING", 3, 3));
-const threes = new Category("COME IN SETS OF THREE");
+const threes = new Category("COME IN SETS OF THREE", "hard");
 threes.add(new Item("SHIPS", 4, 0));
 threes.add(new Item("WISE MEN", 4, 1));
 threes.add(new Item("LET IT SNOW", 4, 2));
 threes.add(new Item("GHOSTS", 4, 3))
-const elfPlaces = new Category("PLACES BUDDY THE ELF VISITED");
+const elfPlaces = new Category("PLACES IN \'ELF\'", "medium");
 elfPlaces.add(new Item("GIMBELS", 5, 0));
 elfPlaces.add(new Item("LINCOLN TUNNEL", 5, 1));
 elfPlaces.add(new Item("NORTH POLE", 5, 2));
 elfPlaces.add(new Item("CENTRAL PARK", 5, 3))
-const cookies = new Category("TYPES OF CHRISTMAS COOKIES");
+const cookies = new Category("TYPES OF CHRISTMAS COOKIES", "easy");
 cookies.add(new Item("SUGAR", 6, 0));
 cookies.add(new Item("GINGERBREAD", 6, 1));
 cookies.add(new Item("MOLASSES", 6, 2));
 cookies.add(new Item("DATE", 6, 3));
-const celebrations = new Category("OTHER CELEBRATIONS NEAR CHRISTMAS");
-celebrations.add(new Item("HANNUKAH", 7, 0));
-celebrations.add(new Item("KWANZAA", 7, 1));
-celebrations.add(new Item("BOXING DAY", 7, 2));
-celebrations.add(new Item("NEW YEARS", 7, 3));
-const movieStars = new Category("FEATURED IN MULTIPLE CHRISTMAS MOVIES");
+const blankChristmas = new Category("_____ CHRISTMAS", "easy");
+blankChristmas.add(new Item("MERRY", 7, 0));
+blankChristmas.add(new Item("WHITE", 7, 1));
+blankChristmas.add(new Item("LAST", 7, 2));
+blankChristmas.add(new Item("BLUE", 7, 3));
+const movieStars = new Category("FEATURED IN MULTIPLE CHRISTMAS MOVIES", "medium");
 movieStars.add(new Item("ALLEN", 8, 0));
 movieStars.add(new Item("VAUGHN", 8, 1));
 movieStars.add(new Item("BILLINGSLEY", 8, 2));
 movieStars.add(new Item("FAVREAU", 8, 3));
-const advent = new Category("ADVENT CANDLE THEMES");
+const advent = new Category("ADVENT CANDLE THEMES", "baby");
 advent.add(new Item("HOPE", 9, 0));
 advent.add(new Item("PEACE", 9, 1));
 advent.add(new Item("JOY", 9, 2));
@@ -186,7 +203,7 @@ elves.forEach(item => itemsLeft.add(item));
 threes.forEach(item => itemsLeft.add(item));
 elfPlaces.forEach(item => itemsLeft.add(item));
 cookies.forEach(item => itemsLeft.add(item));
-celebrations.forEach(item => itemsLeft.add(item));
+blankChristmas.forEach(item => itemsLeft.add(item));
 movieStars.forEach(item => itemsLeft.add(item));
 advent.forEach(item => itemsLeft.add(item));
 // set for the 0-4 selected items, initially empty
@@ -240,8 +257,8 @@ function submitGuess() {
             elfPlaces.solve();
         } else if (cookies.contains(selected)) {
             cookies.solve();
-        } else if (celebrations.contains(selected)) {
-            celebrations.solve();
+        } else if (blankChristmas.contains(selected)) {
+            blankChristmas.solve();
         } else if (movieStars.contains(selected)) {
             movieStars.solve();
         } else if (advent.contains(selected)) {
@@ -289,16 +306,16 @@ function draw() {
 
     // draw buttons at the bottom
     if (selected.size > 0) {
-        deselect.drawButton("rgb(0 0 0)", "rgb(255 255 255)");
+        deselect.drawButton("rgb(0 150 0)", "rgb(0 0 0)");
     } else {
         deselect.drawButton("rgb(150 150 150)", "rgb(0 0 0)");
     }
     if (selected.size === 4) {
-        submit.drawButton("rgb(0 0 0)", "rgb(255 255 255)");
+        submit.drawButton("rgb(0 150 0)", "rgb(0 0 0)");
     } else {
         submit.drawButton("rgb(150 150 150)", "rgb(0 0 0)");
     }
-    shuffler.drawButton("rgb(0 0 0)", "rgb(255 255 255)");
+    shuffler.drawButton("rgb(0 150 0)", "rgb(0 0 0)");
 
     // draw item buttons
     itemsLeft.forEach(item => item.drawButton());
