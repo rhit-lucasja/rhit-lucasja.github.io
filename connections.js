@@ -71,13 +71,13 @@ class Category extends Set {
         // determine color to draw based on difficulty
         switch (difficulty) {
             case "baby":
-                this.color = "rgb(0 150 0)";
-                break;
-            case "easy":
                 this.color = "rgb(175 175 0)";
                 break;
+            case "easy":
+                this.color = "rgb(0 150 0)";
+                break;
             case "medium":
-                this.color = "rgb(100 100 150";
+                this.color = "rgb(100 100 150)";
                 break;
             case "hard":
                 this.color = "rgb(150 50 150)";
