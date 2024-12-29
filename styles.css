@@ -24,6 +24,24 @@ video {
     padding-left: 5%;
     padding-right: 5%;
 }
+.topnav {
+    background-color: #557755;
+    display: flex;
+}
+.topnav a {
+    float: left;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-top: 1vmin;
+    padding-bottom: 1vmin;
+    font-size: 3vmin;
+    text-decoration: none;
+    color: black;
+}
+.topnav a:hover {
+    background-color: #335533;
+    color: white;
+}
 
 /*
 For smaller screens

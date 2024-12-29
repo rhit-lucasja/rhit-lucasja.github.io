@@ -1,7 +1,7 @@
 // setting relevant variables
 const canvas = document.querySelector(".myGame");
 const width = (canvas.width = window.innerWidth);
-const height = (canvas.height = window.innerHeight);
+const height = (canvas.height = window.innerHeight * 0.95);
 const ctx = canvas.getContext("2d");
 canvas.addEventListener("click", function (e) {
     handleMouseClick(e.clientX - canvas.getBoundingClientRect().x, e.clientY - canvas.getBoundingClientRect().y);

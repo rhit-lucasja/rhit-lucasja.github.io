@@ -1,7 +1,7 @@
-body {
-    margin: 0;
-    overflow: hidden;
+html {
+    height: 100%;
 }
-button {
-    color: green;
+body {
+    height: 100%;
+    overflow: hidden;
 }
