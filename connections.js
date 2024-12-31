@@ -305,7 +305,7 @@ function shuffle() {
     assignLocations();
 }
 
-function wrapText(string, boxX, boxY, boxW, boxH, size) {
+function wrapText(string, boxX, boxY, boxW, boxH, size, final) {
     // draw box and setup font with current size
     ctx.fillStyle = "rgb(119 153 119)";
     ctx.fillRect(boxX, boxY, boxW, boxH);
@@ -319,13 +319,17 @@ function wrapText(string, boxX, boxY, boxW, boxH, size) {
         let test = line + words[i] + " ";
         if (i == words.length - 1) { // draw last line
             test = test.trimEnd();
-            ctx.fillText(test, boxX + boxW / 2 - ctx.measureText(test).width / 2,
-                boxY + 10 + n * size);
+            if (final) {
+                ctx.fillText(test, boxX + boxW / 2 - ctx.measureText(test).width / 2,
+                    boxY + 10 + n * size);
+            }
             n++;
         } else if (ctx.measureText(test).width > boxW && i > 0) {
             line = line.trimEnd();
-            ctx.fillText(line, boxX + boxW / 2 - ctx.measureText(line).width / 2,
-                boxY + 10 + n * size);
+            if (final) {
+                ctx.fillText(line, boxX + boxW / 2 - ctx.measureText(line).width / 2,
+                    boxY + 10 + n * size);
+            }
             n++;
             line = words[i] + " ";
         } else { // keep adding to line
@@ -334,8 +338,12 @@ function wrapText(string, boxX, boxY, boxW, boxH, size) {
     }
 
     // increase font if plenty of font to do so
-    if ((n - 1) * size < boxH - 70 - size * 2) {
-        wrapText(string, boxX, boxY, boxW, boxH, size + 2);
+    if (!final) {
+        if ((n - 1) * size > boxH - 70) {
+            wrapText(string, boxX, boxY, boxW, boxH, size - 2, true);
+        } else {
+            wrapText(string, boxX, boxY, boxW, boxH, size + 2, false);
+        }
     }
 }
 
@@ -370,7 +378,7 @@ function draw() {
         let bH = height - 100;
         // message box and description of the game
         const msgString = "For the past few years, my siblings and I have each created a puzzle or game for Christmas. In a friendly competition, our family races to see who can finish each puzzle first. In 2024, I decided to acquire some new JavaScript knowledge by creating the game (based on the New York Times' Connections) completely online. Click start to try the puzzle for yourself!";
-        wrapText(msgString, bX, bY, bW, bH, 2);
+        wrapText(msgString, bX, bY, bW, bH, 10, false);
         // start button
         start.drawButton("rgb(85 119 85", "rgb(0 0 0)");
     }
