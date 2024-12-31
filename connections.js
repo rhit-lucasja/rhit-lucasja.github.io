@@ -317,16 +317,9 @@ function wrapText(string, boxX, boxY, boxW, boxH, size, final) {
     let n = 1;
     for (let i = 0; i < words.length; i++) {
         let test = line + words[i] + " ";
-        if (i == words.length - 1) { // draw last line
-            test = test.trimEnd();
+        if (ctx.measureText(test).width > boxW && i > 0) {
             if (final) {
-                ctx.fillText(test, boxX + boxW / 2 - ctx.measureText(test).width / 2,
-                    boxY + 10 + n * size);
-            }
-            n++;
-        } else if (ctx.measureText(test).width > boxW && i > 0) {
-            line = line.trimEnd();
-            if (final) {
+                line = line.trimEnd();
                 ctx.fillText(line, boxX + boxW / 2 - ctx.measureText(line).width / 2,
                     boxY + 10 + n * size);
             }
@@ -336,6 +329,12 @@ function wrapText(string, boxX, boxY, boxW, boxH, size, final) {
             line = test;
         }
     }
+    if (final) {
+        line = line.trimEnd();
+        ctx.fillText(line, boxX + boxW / 2 - ctx.measureText(line).width / 2,
+            boxY + 10 + n * size);
+    }
+    n++;
 
     // increase font if plenty of font to do so
     if (!final) {
