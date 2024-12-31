@@ -370,7 +370,7 @@ function draw() {
         let bH = height - 100;
         // message box and description of the game
         const msgString = "For the past few years, my siblings and I have each created a puzzle or game for Christmas. In a friendly competition, our family races to see who can finish each puzzle first. In 2024, I decided to acquire some new JavaScript knowledge by creating the game (based on the New York Times' Connections) completely online. Click start to try the puzzle for yourself!";
-        wrapText(msgString, bX, bY, bW, bH, 12);
+        wrapText(msgString, bX, bY, bW, bH, 2);
         // start button
         start.drawButton("rgb(85 119 85", "rgb(0 0 0)");
     }
