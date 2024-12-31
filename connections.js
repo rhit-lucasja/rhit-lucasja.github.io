@@ -143,6 +143,7 @@ class Category extends Set {
 const shuffler = new Button("Shuffle", width / 2 - 160, height - 60, 100, 50);
 const deselect = new Button("Deselect All", width / 2 - 50, height - 60, 100, 50);
 const submit = new Button("Submit", width / 2 + 60, height - 60, 100, 50);
+const start = new Button("Start", width / 2 - 50, height - 110, 100, 50);
 // add four items to each categorical set
 const foodGroups = new Category("THE FOUR MAIN FOOD GROUPS", "baby");
 foodGroups.add(new Item("CANDY", 0, 0));
@@ -212,18 +213,24 @@ const selected = new Set();
 const solved = new Set();
 
 function handleMouseClick(clickX, clickY) {
-    if (deselect.contains(clickX, clickY)) {
-        deselectAll();
-    } else if (submit.contains(clickX, clickY)) {
-        submitGuess();
-    } else if (shuffler.contains(clickX, clickY)) {
-        shuffle();
+    if (active) {
+        if (deselect.contains(clickX, clickY)) {
+            deselectAll();
+        } else if (submit.contains(clickX, clickY)) {
+            submitGuess();
+        } else if (shuffler.contains(clickX, clickY)) {
+            shuffle();
+        } else {
+            itemsLeft.forEach(item => {
+                if (item.contains(clickX, clickY)) {
+                    clickItem(item);
+                }
+            });
+        }
     } else {
-        itemsLeft.forEach(item => {
-            if (item.contains(clickX, clickY)) {
-                clickItem(item);
-            }
-        });
+        if (start.contains(clickX, clickY)) {
+            active = true;
+        }
     }
 }
 
@@ -298,6 +305,40 @@ function shuffle() {
     assignLocations();
 }
 
+function wrapText(string, boxX, boxY, boxW, boxH, size) {
+    // draw box and setup font with current size
+    ctx.fillStyle = "rgb(119 153 119)";
+    ctx.fillRect(boxX, boxY, boxW, boxH);
+    ctx.fillStyle = "rgb(0 0 0)";
+    ctx.font = `${size}px arial`;
+
+    const words = string.split(" ");
+    let line = "";
+    let n = 1;
+    for (let i = 0; i < words.length; i++) {
+        let test = line + words[i] + " ";
+        if (i == words.length - 1) { // draw last line
+            test = test.trimEnd();
+            ctx.fillText(test, boxX + boxW / 2 - ctx.measureText(test).width / 2,
+                boxY + 10 + n * size);
+            n++;
+        } else if (ctx.measureText(test).width > boxW && i > 0) {
+            line = line.trimEnd();
+            ctx.fillText(line, boxX + boxW / 2 - ctx.measureText(line).width / 2,
+                boxY + 10 + n * size);
+            n++;
+            line = words[i] + " ";
+        } else { // keep adding to line
+            line = test;
+        }
+    }
+
+    // increase font if plenty of font to do so
+    if ((n - 1) * size < boxH - 70 - size * 2) {
+        wrapText(string, boxX, boxY, boxW, boxH, size + 2);
+    }
+}
+
 function draw() {
     
     // clear screen
@@ -321,10 +362,24 @@ function draw() {
     itemsLeft.forEach(item => item.drawButton());
     solved.forEach(category => category.drawCategory());
 
+    // draw message box before game start
+    if (!active) {
+        let bX = 50;
+        let bY = 50;
+        let bW = width - 100;
+        let bH = height - 100;
+        // message box and description of the game
+        const msgString = "For the past few years, my siblings and I have each created a puzzle or game for Christmas. In a friendly competition, our family races to see who can finish each puzzle first. In 2024, I decided to acquire some new JavaScript knowledge by creating the game (based on the New York Times' Connections) completely online. Click start to try the puzzle for yourself!";
+        wrapText(msgString, bX, bY, bW, bH, 12);
+        // start button
+        start.drawButton("rgb(85 119 85", "rgb(0 0 0)");
+    }
+
     // refresh
     window.requestAnimationFrame(draw);
 }
 
-// start animation
+// start animated screen
+let active = false;
 shuffle();
-draw()
+draw();
