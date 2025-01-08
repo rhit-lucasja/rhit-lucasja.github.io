@@ -143,7 +143,7 @@ class Category extends Set {
 const shuffler = new Button("Shuffle", width / 2 - 160, height - 60, 100, 50);
 const deselect = new Button("Deselect All", width / 2 - 50, height - 60, 100, 50);
 const submit = new Button("Submit", width / 2 + 60, height - 60, 100, 50);
-const start = new Button("Start", width / 2 - 50, height - 110, 100, 50);
+const start = new Button("Start", width / 2 - 50, height - getMsgBoxY(getMsgBoxH()) - 60, 100, 50);
 // add four items to each categorical set
 const foodGroups = new Category("THE FOUR MAIN FOOD GROUPS", "baby");
 foodGroups.add(new Item("CANDY", 0, 0));
@@ -336,14 +336,27 @@ function wrapText(string, boxX, boxY, boxW, boxH, size, final) {
     }
     n++;
 
-    // increase font if plenty of font to do so
+    // increase font size if plenty of room to do so
     if (!final) {
         if ((n - 1) * size > boxH - 70) {
-            wrapText(string, boxX, boxY, boxW, boxH, size - 2, true);
+            wrapText(string, boxX, boxY, boxW, boxH, size - 3, true);
         } else {
-            wrapText(string, boxX, boxY, boxW, boxH, size + 2, false);
+            wrapText(string, boxX, boxY, boxW, boxH, size + 3, false);
         }
     }
+}
+
+function getMsgBoxW() {
+    return Math.min(width - 100, 800);
+}
+function getMsgBoxH() {
+    return Math.min(height - 100, 600);
+}
+function getMsgBoxX(bW) {
+    return (width - bW) / 2;
+}
+function getMsgBoxY(bH) {
+    return (height - bH) / 2;
 }
 
 function draw() {
@@ -371,10 +384,10 @@ function draw() {
 
     // draw message box before game start
     if (!active) {
-        let bX = 50;
-        let bY = 50;
-        let bW = width - 100;
-        let bH = height - 100;
+        let bW = getMsgBoxW();
+        let bH = getMsgBoxH();
+        let bX = getMsgBoxX(bW);
+        let bY = getMsgBoxY(bH);
         // message box and description of the game
         const msgString = "For the past few years, my siblings and I have each created a puzzle or game for Christmas. In a friendly competition, our family races to see who can finish each puzzle first. In 2024, I decided to acquire some new JavaScript knowledge by creating the game (based on the New York Times' Connections) completely online. Click start to try the puzzle for yourself!";
         wrapText(msgString, bX, bY, bW, bH, 10, false);
