@@ -180,5 +180,100 @@
                 <img src="media/xor_est.png">
             </div>
         </div>
+        <div class="container" style="background-color: #779977">
+            <div class="text-content">
+                <h2>Operating Systems Multithreading Project</h2>
+                <p>This project was completed as part of my Operating Systems class.</p>
+                <p>
+                    <b>The Task:</b> Implement a custom API that adds threading capability to the xv6 operating system.
+                    Using the API, any user program should be able to create multiple threads, execute them in parallel
+                    (or as close to parallel as xv6 allows--more on that later), and join threads together upon completion.
+                    Threads must share the same physical memory, and any updates to memory by one thread should be accessible
+                    by all other threads of the same process.
+                </p>
+                <p>
+                    <b>The Result:</b> <i>rhthr</i>, the palindromic and tongue-twisting Rose-Hulman threading library
+                    designed and developed by myself, Tal Belkind, and Oskar Steiger. We tested our threads extensively,
+                    ensuring all the required elements functioned properly.
+                </p>
+                <p>
+                    Threads share the same physical memory. Threads can pass pointers between each other, updating and
+                    accessing the data at the specified addresses. Any call to sbrk(), which allocates and maps a new
+                    page to the calling thread's pagetable, was propagated to all threads of the same process; that is,
+                    each thread's pagetable was updated to reflect changes. All of this was coded into system calls that
+                    formed the backbone behind our three-function user API:
+                </p>
+            </div>
+            <div class="large-media-content hide-mobile">
+                <img src="media/os_tests_run.png">
+            </div>
+        </div>
+        <div class="container" style="background-color: #779977">
+            <div class="text-content">
+                <menu>
+                    <li style="padding-bottom: 8px">
+                        <b>rhthr_create(int*, void* (void*), void*);</b> - This function creates a new thread, storing a unique
+                                                    thread ID at the address given by the int* argument. The child thread starts
+                                                    execution at a provided void* function, which takes a single void* argument,
+                                                    also provided as the third argument to rhthr_create(). The thread creation system
+                                                    call starts a struct proc for the new thread, creates a copy of the original
+                                                    process's pagetable (with the same mappings to shared physical space), and 
+                                                    allocates space for the new thread's stack, which is separated from the others.
+                    </li>
+                    <li style="padding-bottom: 8px">
+                        <b>rhthr_join(int*);</b> - This function is called by the parent process to join its child thread with
+                                                   a specific thread ID, which is stored at the location given by its int* argument.
+                                                   In brief, rhthr_join() erases the struct proc belonging to the joined thread,
+                                                   decrementing any file and physical memory reference counts as it does so. Clean up
+                                                   time!
+                    </li>
+                    <li>
+                        <b>rhthr_exit();</b> - This function should be called at the end of a thread's line of execution.
+                                               Although not implemented in this final project, in an earlier CSSE 332 assignment
+                                               I programmed implicit thread exiting so that userspace threads could simply return
+                                               from their thread function rather than have to call a thread-specific exit() function.
+                                               rhthr_exit() signals the operating system to mark the calling thread as no longer
+                                               runnable by the scheduler, and the thread idles until it is joined by its parent process.
+                    </li>
+                </menu>
+            </div>
+            <div class="large-media-content show-mobile">
+                <img src="media/os_tests_run.png">
+            </div>
+            <div class="large-media-content">
+                <img src="media/os_tests.png">
+            </div>
+        </div>
+        <div class="container" style="background-color: #779977">
+            <div class="large-media-content hide-mobile">
+                <img src="media/os_unbuffered.png">
+            </div>
+            <div class="text-content">
+                <h3>Favorite Design Approach: Testing</h3>
+                <p>
+                    My favorite additional feature for the threading project was our unique approach to testing, which stood
+                    out among the class. Instead of having threads print to stdout and visually inspecting for unexpected
+                    behavior, we created automatic testing capabilities. Using the peculiar fact that file descriptors are
+                    assigned linearly in xv6, we could redirect stdout, test our thread creation and execution, and compare
+                    the output, printed by various parallel threads to an output.txt file, to the expected output which was
+                    provided upon running the test.
+                </p>
+                <p class="hide-mobile">
+                    Another peculiarity of our provided xv6 operating system was that the function, printf(), was not buffered.
+                    Instead, it wrote to stdout character-by-character, leading to the muddled output shown to the left. Obviously,
+                    to run our tests against expected output, we needed a way to fix this odd behavior in order to reliably predict
+                    expected outputs. Huge shoutout to Tal Belkind, then, for his work on buffering printf() in xv6!
+                </p>
+                <p class="show-mobile">
+                    Another peculiarity of our provided xv6 operating system was that the function, printf(), was not buffered.
+                    Instead, it wrote to stdout character-by-character, leading to the muddled output shown below. Obviously,
+                    to run our tests against expected output, we needed a way to fix this odd behavior in order to reliably predict
+                    expected outputs. Huge shoutout to Tal Belkind, then, for his work that effectively buffered printf().
+                </p>
+            </div>
+            <div class="large-media-content show-mobile">
+                <img src="media/os_unbuffered.png">
+            </div>
+        </div>
     </body>
 </html>
