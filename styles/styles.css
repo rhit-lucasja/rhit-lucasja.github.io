@@ -1,6 +1,5 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
     height: 98vh;
 }
 
@@ -15,11 +14,36 @@ img {
 h1 {
     font-size: 32px;
     color: darkred;
-    margin: 4px 0;
+    margin: 4px;
 }
 
 h2 {
     font-size: 20px;
     color: darkslategray;
-    margin: 4px 0;
+    margin: 4px;
+}
+
+#tagline {
+    text-align: center;
+}
+
+.dropdown-control {
+    
+}
+
+.expand-arrow:hover {
+    /*
+     * CITATION: Looked up "mdn rotate img element css -ai"
+     *   Found the transition and rotate attributes at the following site: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/rotate
+     */
+    transition: 0.25s;
+    rotate: 90deg;
+}
+
+.dropdown-content {
+    
+}
+
+.hidden {
+    display: none;
 }
