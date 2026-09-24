@@ -27,6 +27,10 @@ navTemplate.innerHTML = `
                 cursor: pointer;
                 text-decoration: underline;
             }
+
+            a:visited {
+                color: lightgray;
+            }
         }
     </style>
 
@@ -68,6 +72,10 @@ footTemplate.innerHTML = `
                 color: lightgray;
                 cursor: pointer;
                 text-decoration: underline;
+            }
+
+            a:visited {
+                color: lightgray;
             }
         }
     </style>
