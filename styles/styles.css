@@ -3,13 +3,6 @@ body {
     height: 98vh;
 }
 
-img {
-    /*
-     * CITATION: Found the border-radius attribute by Inspect Element on a CSS file from my real portfolio page
-     */
-    border-radius: 12%;
-}
-
 h1 {
     font-size: 32px;
     color: darkred;
