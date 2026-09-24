@@ -8,24 +8,31 @@ img {
      * CITATION: Found the border-radius attribute by Inspect Element on a CSS file from my real portfolio page
      */
     border-radius: 12%;
-    margin-top: 16px;
 }
 
 h1 {
     font-size: 32px;
     color: darkred;
-    margin: 4px;
+    margin: 8px;
 }
 
 h2 {
     font-size: 20px;
     font-weight: normal;
     color: darkslategray;
-    margin: 4px;
+    margin: 8px;
 }
 
 #tagline {
     text-align: center;
+}
+
+ul {
+    margin: 0;
+}
+
+.dropdown-control {
+    padding: 8px 0;
 }
 
 .dropdown-control:hover {
@@ -34,8 +41,8 @@ h2 {
     cursor: pointer;
 }
 
-.dropdown-content {
-
+.dropdown-content li {
+    padding: 4px 0;
 }
 
 .collapsed-arrow {
